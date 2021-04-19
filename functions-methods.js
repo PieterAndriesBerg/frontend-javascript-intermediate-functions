@@ -9,7 +9,17 @@
 // getEmailDomain("t.mellink@novi.nl") geeft novi.nl
 // getEmailDomain("a.wiersma@outlook.com") geeft outlook.com
 
+// we hebben nodig:
+// string.slice()
 
+function getEmailDomain(emailadres) {
+    let index = emailadres.indexOf("@");
+    let domain = emailadres.slice(index);
+    return domain.substring(1);
+    
+}
+
+console.log(getEmailDomain("testing123@outlook.com"));
 
 
 /* Opdracht  2 */
@@ -19,6 +29,21 @@
 // typeOfEmail("t.mellink@novi.nl") geeft geeft "Medewerker"
 // typeOfEmail("novi.nlaapjesk@outlook.com") geeft geeft "Extern" <-- deze moet het ook doen!
 // typeOfEmail("a.wiersma@outlook.com") geeft "Extern"
+function typeOfEmail(emailadres){
+    let student;
+    let medewerker;
+    let extern;
+    if (emailadres.includes("@novi.nl")) {
+         return medewerker = "Medewerker";
+    } else if(emailadres.includes("@novi-education.nl")) {
+       return student = "Student";
+    } else if (emailadres.includes("@")){
+        return extern = "Extern";
+    }
+
+}
+
+console.log(typeOfEmail("n.eeken@novi-education.nl"));
 
 
 
@@ -34,3 +59,37 @@
 // checkEmailValidity("n.eekenanovi.nl") geeft false - want geen @
 // checkEmailValidity("n.eeken@novinl.") geeft false - want de punt mag niet als laatst
 // checkEmailValidity("tessmellink@novi,nl") geeft false - want er staat een komma in
+function checkEmailValidity(emailadres) {
+
+   // split the email in 2 parts if it contains @
+   if (emailadres.includes("@")) {
+       let emailParts = emailadres.split("@");
+       let emailName = emailParts[0];
+       let emailDomain = emailParts[1];
+
+        //check if email contains , return false if its true
+        if (emailadres.includes(",")) {
+            console.log("Email cannot include ,");
+            return false;
+        }
+
+       //domain must include . but not start with it
+       if (emailDomain.indexOf(".") <= 0){
+           console.log("Domain must include . but not start with it");
+           return false;
+       } else if (emailDomain.endsWith(".")) {
+           console.log(". cannot be at the end");
+           return false;
+       }
+       
+   } else {
+       console.log("Email adres needs to contain @");
+       return false
+   }
+
+   return true;
+
+}
+
+
+console.log(checkEmailValidity("tessmellink@novi,nl"));
